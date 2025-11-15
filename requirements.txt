@@ -17,6 +17,7 @@ MarkupSafe==3.0.3
 # Database
 SQLAlchemy==2.0.44
 greenlet==3.2.4
+psycopg2-binary==2.9.9
 
 # Forms
 WTForms==3.2.1
