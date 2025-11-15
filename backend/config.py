@@ -10,16 +10,7 @@ BASE_DIR = Path(__file__).parent.parent
 class Config:
     """Base configuration class"""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key-change-in-production'
-    
-    # Database configuration
-    # If DATABASE_URL is set, use it (for PostgreSQL or other shared databases)
-    # Otherwise, fall back to local SQLite for development
-    DATABASE_URL_ENV = os.environ.get('DATABASE_URL')
-    if DATABASE_URL_ENV:
-        SQLALCHEMY_DATABASE_URI = DATABASE_URL_ENV
-    else:
-        SQLALCHEMY_DATABASE_URI = f'sqlite:///{BASE_DIR / "classk.db"}'
-    
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or f'sqlite:///{BASE_DIR / "classk.db"}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Upload settings
