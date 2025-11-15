@@ -52,4 +52,12 @@ def create_app(config_name='default'):
     def load_user(user_id):
         return User.query.get(int(user_id))
     
+    # Register root route
+    from flask import render_template
+    
+    @app.route('/')
+    def index():
+        """Home page route"""
+        return render_template('index.html')
+    
     return app
