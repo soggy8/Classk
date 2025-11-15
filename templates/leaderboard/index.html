@@ -2,24 +2,77 @@
 
 {% block title %}Leaderboard - Classk{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="leaderboard-page">
-    <h1>Leaderboard - {{ current_user.major_group }}</h1>
+    <h1>Leaderboard{% if scope == 'group' %} - {{ current_user.major_group }}{% endif %}</h1>
+    
+    <!-- Leaderboard Type Selector -->
+    <div class="leaderboard-filters">
+        <div class="filter-group">
+            <label>Leaderboard Type:</label>
+            <div class="filter-buttons">
+                <a href="{{ url_for('leaderboard.index', type='overall', scope=scope) }}" 
+                   class="filter-btn {{ 'active' if leaderboard_type == 'overall' else '' }}">
+                    Most Points
+                </a>
+                <a href="{{ url_for('leaderboard.index', type='help_favor', scope=scope) }}" 
+                   class="filter-btn {{ 'active' if leaderboard_type == 'help_favor' else '' }}">
+                    Help/Favor
+                </a>
+                <a href="{{ url_for('leaderboard.index', type='lost_found', scope=scope) }}" 
+                   class="filter-btn {{ 'active' if leaderboard_type == 'lost_found' else '' }}">
+                    Lost & Found
+                </a>
+                <a href="{{ url_for('leaderboard.index', type='team_study', scope=scope) }}" 
+                   class="filter-btn {{ 'active' if leaderboard_type == 'team_study' else '' }}">
+                    Team/Study Group
+                </a>
+                <a href="{{ url_for('leaderboard.index', type='event', scope=scope) }}" 
+                   class="filter-btn {{ 'active' if leaderboard_type == 'event' else '' }}">
+                    Event
+                </a>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <label>Scope:</label>
+            <div class="filter-buttons">
+                <a href="{{ url_for('leaderboard.index', type=leaderboard_type, scope='group') }}" 
+                   class="filter-btn {{ 'active' if scope == 'group' else '' }}">
+                    My Group
+                </a>
+                <a href="{{ url_for('leaderboard.index', type=leaderboard_type, scope='global') }}" 
+                   class="filter-btn {{ 'active' if scope == 'global' else '' }}">
+                    Global
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="leaderboard-header">
+        <h2>{{ category_name }}</h2>
+    </div>
     
     <div class="user-rank">
         <h2>Your Rank: #{{ user_rank }}</h2>
-        <p>Your Points: {{ current_user.points }} (Level {{ current_user.level }})</p>
+        <p>Your Points: {{ user_points }}{% if leaderboard_type == 'overall' %} (Level {{ current_user.level }}){% endif %}</p>
     </div>
 
     <div class="leaderboard-list">
-        <h2>Top 5 Students</h2>
+        <h2>Top 10 {% if scope == 'group' %}Students{% else %}Users{% endif %}</h2>
+        {% if top_users %}
         <table class="leaderboard-table">
             <thead>
                 <tr>
                     <th>Rank</th>
                     <th>Name</th>
+                    {% if scope == 'global' %}<th>Group</th>{% endif %}
                     <th>Points</th>
-                    <th>Level</th>
+                    {% if leaderboard_type == 'overall' %}<th>Level</th>{% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -27,12 +80,18 @@
                     <tr class="{{ 'current-user' if user.id == current_user.id else '' }}">
                         <td>#{{ loop.index }}</td>
                         <td>{{ user.name }}</td>
+                        {% if scope == 'global' %}<td>{{ user.major_group }}</td>{% endif %}
                         <td>{{ user.points }}</td>
-                        <td>Level {{ user.level }}</td>
+                        {% if leaderboard_type == 'overall' %}
+                            <td>Level {{ user.level }}</td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <p class="no-leaderboard">No rankings available for this category yet.</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
