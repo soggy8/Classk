@@ -8,10 +8,47 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: Poppins, sans-serif;
+    background: radial-gradient(circle at top, #a855ff 0%, #4c1d95 35%, #03001c 100%);
+    color: #f9fafb;
     line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
+}
+
+.glow {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    filter: blur(150px);
+    z-index: -1;
+}
+
+.glow.purple {
+    background: rgba(139, 92, 246, 0.4);
+    top: -80px;
+    left: -60px;
+}
+
+.glow.pink {
+    background: rgba(236, 72, 153, 0.4);
+    bottom: 100px;
+    right: -80px;
+}
+
+.title{
+    color: #f9fafb;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.brand-accent{
+    background: linear-gradient(135deg, #a855ff, #ec4899);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .container {
@@ -22,10 +59,12 @@ body {
 
 /* Navigation */
 .navbar {
-    background-color: #2c3e50;
-    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    color: #f9fafb;
     padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
 }
 
 .navbar .container {
@@ -35,10 +74,12 @@ body {
 }
 
 .nav-brand a {
-    color: white;
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #a855ff, #ec4899);
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 .nav-menu {
@@ -115,21 +156,82 @@ body {
 }
 
 .btn-primary {
-    background-color: #3498db;
-    color: white;
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #a855ff, #ec4899);
+    color: #f9fafb;
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: 0 14px 28px rgba(76,29,149,0.5);
+    transition: 0.2s ease;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    transform: translateY(-2px);
+    filter: brightness(1.08);
 }
 
 .btn-secondary {
-    background-color: #95a5a6;
-    color: white;
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.40);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    color: #e5e7eb;
+    backdrop-filter: blur(12px);
+    transition: 0.2s;
 }
 
 .btn-secondary:hover {
-    background-color: #7f8c8d;
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.glass-card{
+    margin-top: 35px;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(18px);
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+}
+
+.glass-inner{
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 20px 16px;
+}
+
+.quick-actions{
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.recent-missions-section{
+    margin-top: 60px;
+
+}
+
+.recent-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-title{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.view-all{
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 14px;
 }
 
 .btn-success {
@@ -175,19 +277,20 @@ body {
 /* Hero section */
 .hero-section {
     text-align: center;
-    padding: 3rem 0;
+    padding-top: 90px;
+    position: relative;
 }
 
 .hero-section h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: #2c3e50;
 }
 
 .subtitle {
-    font-size: 1.25rem;
-    color: #7f8c8d;
-    margin-bottom: 2rem;
+    font-size: 15px;
+    color: #e5e7eb;
+    font-weight: 300;
+    margin-bottom: 22px;
 }
 
 .cta-buttons {
@@ -198,10 +301,11 @@ body {
 
 /* Stats grid */
 .stats-grid {
+    margin-top: 26px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 18px;
+
 }
 
 .stat-card {
@@ -213,22 +317,31 @@ body {
 }
 
 .stat-card h3 {
-    font-size: 2rem;
-    color: #3498db;
-    margin-bottom: 0.5rem;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 3px;
 }
 
 .stat-card p {
-    color: #7f8c8d;
+    color: #e5e7eb;
+    font-size: 13px;
 }
 
 /* Footer */
 .footer {
-    background-color: #2c3e50;
-    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    color: #f9fafb;
+    padding: 1rem 0;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+}
+
+.footer p{
+    margin: 0;
     text-align: center;
-    padding: 1.5rem 0;
-    margin-top: 3rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
 }
 
 /* Forms */

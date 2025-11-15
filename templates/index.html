@@ -4,7 +4,11 @@
 
 {% block content %}
 <div class="hero-section">
-    <h1>Welcome to Classk</h1>
+
+    <div class="glow purple"></div>
+    <div class="glow pink"></div>
+
+    <h1 class="title">Welcome to <span class="brand-accent">Classk</span></h1>
     <p class="subtitle">Complete missions, earn points, and compete on leaderboards!</p>
     
     {% if not current_user.is_authenticated %}
@@ -13,18 +17,18 @@
             <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Login</a>
         </div>
     {% else %}
-        <div class="welcome-back">
+        <div class="welcome-back glass-card">
             <h2>Welcome back, {{ current_user.name }}!</h2>
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card glass-inner">
                     <h3>{{ current_user.points }}</h3>
                     <p>Points</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glass-inner">
                     <h3>Level {{ current_user.level }}</h3>
                     <p>Level</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card glass-inner">
                     <h3>{{ current_user.major_group }}</h3>
                     <p>Major/Group</p>
                 </div>
@@ -38,9 +42,11 @@
 </div>
 
 {% if current_user.is_authenticated %}
-    <section class="recent-missions">
-        <h2>Recent Missions</h2>
-        <a href="{{ url_for('missions.list_missions') }}" class="btn btn-link">View All Missions →</a>
+    <section class="recent-missions-section">
+        <div class="recent-header">
+            <h2 class="section-title">Recent Missions</h2>
+            <a href="{{ url_for('missions.list_missions') }}" class="view-all">View All Missions →</a>
+        </div>
     </section>
 {% endif %}
 {% endblock %}
