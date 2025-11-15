@@ -4,6 +4,7 @@ Flask application factory
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from pathlib import Path
 from backend.config import config
 
 # Initialize extensions
@@ -12,9 +13,15 @@ login_manager = LoginManager()
 
 def create_app(config_name='default'):
     """Application factory function"""
+    # Get absolute paths
+    base_dir = Path(__file__).parent.parent
+    template_dir = base_dir / 'templates'
+    static_dir = base_dir / 'frontend'
+    
     app = Flask(__name__, 
-                template_folder='../templates',
-                static_folder='../frontend')
+                template_folder=str(template_dir),
+                static_folder=str(static_dir),
+                static_url_path='/static')
     
     # Load configuration
     app.config.from_object(config[config_name])
