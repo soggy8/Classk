@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
 {% block title %}Login - Classk{% endblock %}
 
@@ -8,21 +8,64 @@
 
 {% block content %}
 <div class="auth-container">
+    <div class="background-glow"></div>
+
     <div class="auth-card">
-        <h2>Login</h2>
+        <div class="brand">
+            <div class="brand-logo">C</div>
+            <div class="brand-name">Classk</div>
+        </div>
+
+        <h1 class="title">Welcome back 👋</h1>
+        <p class="subtitle">
+            Continue your <span class="highlight">study streak</span> and keep your focus high.
+        </p>
+
         <form method="POST" action="{{ url_for('auth.login') }}" id="loginForm">
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required autofocus>
+                <div class="input-wrapper">
+                    <input type="email" id="email" name="email"
+                           placeholder="you@example.com" required autofocus>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password"
+                           placeholder="••••••••" required>
+                    <button type="button" class="toggle-password">Show</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+            <div class="helper-row">
+                <span>Keep me signed in</span>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-primary">Login</button>
         </form>
+
+        <div class="divider">
+            <span></span>
+            <p>or continue with</p>
+            <span></span>
+        </div>
+
+        <div class="social-row">
+            <button class="social-btn" title="Continue with Google">G</button>
+            <button class="social-btn" title="Continue with Apple"></button>
+            <button class="social-btn" title="Continue with Microsoft">M</button>
+        </div>
+
+        <p class="motivation">
+            Every login is one step closer to your <span>next A+</span> 💜
+        </p>
+
         <p class="auth-link">
-            Don't have an account? <a href="{{ url_for('auth.signup') }}">Sign up</a>
+            Don't have an account?
+            <a href="{{ url_for('auth.signup') }}">Sign up</a>
         </p>
     </div>
 </div>
