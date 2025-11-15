@@ -1,2 +1,46 @@
-<!-- Home page / Mission feed -->
+{% extends "base.html" %}
 
+{% block title %}Home - Classk{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <h1>Welcome to Classk</h1>
+    <p class="subtitle">Complete missions, earn points, and compete on leaderboards!</p>
+    
+    {% if not current_user.is_authenticated %}
+        <div class="cta-buttons">
+            <a href="{{ url_for('auth.signup') }}" class="btn btn-primary">Get Started</a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Login</a>
+        </div>
+    {% else %}
+        <div class="welcome-back">
+            <h2>Welcome back, {{ current_user.name }}!</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>{{ current_user.points }}</h3>
+                    <p>Points</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Level {{ current_user.level }}</h3>
+                    <p>Level</p>
+                </div>
+                <div class="stat-card">
+                    <h3>{{ current_user.major_group }}</h3>
+                    <p>Major/Group</p>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <a href="{{ url_for('missions.create') }}" class="btn btn-primary">Create Mission</a>
+                <a href="{{ url_for('missions.list_missions') }}" class="btn btn-secondary">Browse Missions</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% if current_user.is_authenticated %}
+    <section class="recent-missions">
+        <h2>Recent Missions</h2>
+        <a href="{{ url_for('missions.list_missions') }}" class="btn btn-link">View All Missions →</a>
+    </section>
+{% endif %}
+{% endblock %}

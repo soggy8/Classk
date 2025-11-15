@@ -1,2 +1,69 @@
-<!-- Mission detail page -->
+{% extends "base.html" %}
 
+{% block title %}{{ mission.title }} - Classk{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="mission-detail">
+    <div class="mission-detail-header">
+        <h1>{{ mission.title }}</h1>
+        <span class="mission-category">{{ mission.category }}</span>
+    </div>
+
+    <div class="mission-meta-bar">
+        <span class="mission-status status-{{ mission.status.lower() }}">{{ mission.status }}</span>
+        {% if mission.difficulty %}
+            <span class="mission-difficulty difficulty-{{ mission.difficulty.lower() }}">{{ mission.difficulty }}</span>
+        {% endif %}
+        <span class="mission-points">🎯 {{ mission.points }} points</span>
+        <span class="mission-group">📚 {{ mission.group_name }}</span>
+    </div>
+
+    <div class="mission-content">
+        <h3>Description</h3>
+        <p>{{ mission.description }}</p>
+
+        {% if mission.attachment_url %}
+            <div class="mission-attachment">
+                <h3>Attachment</h3>
+                <a href="{{ url_for('static', filename=mission.attachment_url.replace('/static/', '')) }}" 
+                   target="_blank" class="btn btn-secondary">View Attachment</a>
+            </div>
+        {% endif %}
+
+        <div class="mission-info">
+            <p><strong>Created by:</strong> {{ mission.creator.name }}</p>
+            <p><strong>Created at:</strong> {{ mission.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+            {% if mission.assignee %}
+                <p><strong>Assigned to:</strong> {{ mission.assignee.name }}</p>
+            {% endif %}
+            {% if mission.completed_at %}
+                <p><strong>Completed at:</strong> {{ mission.completed_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                {% if mission.points_awarded %}
+                    <p><strong>Points awarded:</strong> {{ mission.points_awarded }}</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mission-actions">
+        {% if current_user.is_authenticated %}
+            {% if mission.status == 'Open' and mission.creator_id != current_user.id %}
+                <form method="POST" action="{{ url_for('missions.accept', mission_id=mission.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-primary">Accept Mission</button>
+                </form>
+            {% elif mission.status == 'Accepted' and mission.assignee_id == current_user.id %}
+                <form method="POST" action="{{ url_for('missions.complete', mission_id=mission.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-success">Complete Mission</button>
+                </form>
+            {% endif %}
+            <a href="{{ url_for('missions.list_missions') }}" class="btn btn-secondary">Back to Missions</a>
+        {% else %}
+            <p>Please <a href="{{ url_for('auth.login') }}">login</a> to accept missions.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

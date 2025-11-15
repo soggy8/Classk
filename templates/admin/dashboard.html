@@ -1,2 +1,95 @@
-<!-- Admin dashboard -->
+{% extends "base.html" %}
 
+{% block title %}Admin Dashboard - Classk{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h1>Admin Dashboard - {{ current_user.major_group }}</h1>
+
+    <div class="admin-filters">
+        <h2>Filters</h2>
+        <form method="GET" action="{{ url_for('admin.dashboard') }}" class="filter-form">
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="">All Categories</option>
+                    <option value="Help/Favor" {{ 'selected' if current_category == 'Help/Favor' else '' }}>Help/Favor</option>
+                    <option value="Lost & Found" {{ 'selected' if current_category == 'Lost & Found' else '' }}>Lost & Found</option>
+                    <option value="Team/Study Group" {{ 'selected' if current_category == 'Team/Study Group' else '' }}>Team/Study Group</option>
+                    <option value="Event" {{ 'selected' if current_category == 'Event' else '' }}>Event</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="">All Statuses</option>
+                    <option value="Open" {{ 'selected' if current_status == 'Open' else '' }}>Open</option>
+                    <option value="Accepted" {{ 'selected' if current_status == 'Accepted' else '' }}>Accepted</option>
+                    <option value="Completed" {{ 'selected' if current_status == 'Completed' else '' }}>Completed</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="creator_id">Creator</label>
+                <select id="creator_id" name="creator_id">
+                    <option value="">All Creators</option>
+                    {% for user in group_users %}
+                        <option value="{{ user.id }}" {{ 'selected' if current_creator_id == user.id else '' }}>{{ user.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Clear Filters</a>
+        </form>
+    </div>
+
+    <div class="admin-missions">
+        <h2>All Missions ({{ missions|length }})</h2>
+        {% if missions %}
+            <div class="missions-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Creator</th>
+                            <th>Assignee</th>
+                            <th>Points</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mission in missions %}
+                            <tr>
+                                <td><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></td>
+                                <td>{{ mission.category }}</td>
+                                <td><span class="status-badge status-{{ mission.status.lower() }}">{{ mission.status }}</span></td>
+                                <td>{{ mission.creator.name }}</td>
+                                <td>{{ mission.assignee.name if mission.assignee else '-' }}</td>
+                                <td>{{ mission.points_awarded if mission.points_awarded else mission.points }}</td>
+                                <td>
+                                    {% if mission.status == 'Completed' and not mission.points_invalidated %}
+                                        <form method="POST" action="{{ url_for('admin.invalidate_points', mission_id=mission.id) }}" style="display: inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm" 
+                                                    onclick="return confirm('Are you sure you want to invalidate points for this mission?');">
+                                                Invalidate Points
+                                            </button>
+                                        </form>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No missions found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

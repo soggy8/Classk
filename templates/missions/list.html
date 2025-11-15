@@ -1,2 +1,59 @@
-<!-- Mission list/feed page -->
+{% extends "base.html" %}
 
+{% block title %}Missions - Classk{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="missions-header">
+    <h1>Missions</h1>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('missions.create') }}" class="btn btn-primary">Create Mission</a>
+    {% endif %}
+</div>
+
+<div class="filters">
+    <h3>Filter by Category</h3>
+    <div class="filter-buttons">
+        <a href="{{ url_for('missions.list_missions') }}" 
+           class="filter-btn {{ 'active' if not current_category else '' }}">All</a>
+        <a href="{{ url_for('missions.list_missions', category='Help/Favor') }}" 
+           class="filter-btn {{ 'active' if current_category == 'Help/Favor' else '' }}">Help/Favor</a>
+        <a href="{{ url_for('missions.list_missions', category='Lost & Found') }}" 
+           class="filter-btn {{ 'active' if current_category == 'Lost & Found' else '' }}">Lost & Found</a>
+        <a href="{{ url_for('missions.list_missions', category='Team/Study Group') }}" 
+           class="filter-btn {{ 'active' if current_category == 'Team/Study Group' else '' }}">Team/Study Group</a>
+        <a href="{{ url_for('missions.list_missions', category='Event') }}" 
+           class="filter-btn {{ 'active' if current_category == 'Event' else '' }}">Event</a>
+    </div>
+</div>
+
+<div class="missions-grid">
+    {% if missions %}
+        {% for mission in missions %}
+            <div class="mission-card">
+                <div class="mission-header">
+                    <h3><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></h3>
+                    <span class="mission-category">{{ mission.category }}</span>
+                </div>
+                <p class="mission-description">{{ mission.description[:150] }}{% if mission.description|length > 150 %}...{% endif %}</p>
+                <div class="mission-meta">
+                    <span class="mission-status status-{{ mission.status.lower() }}">{{ mission.status }}</span>
+                    {% if mission.difficulty %}
+                        <span class="mission-difficulty difficulty-{{ mission.difficulty.lower() }}">{{ mission.difficulty }}</span>
+                    {% endif %}
+                    <span class="mission-points">{{ mission.points }} points</span>
+                </div>
+                <div class="mission-footer">
+                    <small>Created by {{ mission.creator.name }}</small>
+                    <a href="{{ url_for('missions.detail', mission_id=mission.id) }}" class="btn btn-sm btn-secondary">View Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-missions">No missions found.</p>
+    {% endif %}
+</div>
+{% endblock %}

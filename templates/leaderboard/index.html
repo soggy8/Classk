@@ -1,2 +1,38 @@
-<!-- Leaderboard page -->
+{% extends "base.html" %}
 
+{% block title %}Leaderboard - Classk{% endblock %}
+
+{% block content %}
+<div class="leaderboard-page">
+    <h1>Leaderboard - {{ current_user.major_group }}</h1>
+    
+    <div class="user-rank">
+        <h2>Your Rank: #{{ user_rank }}</h2>
+        <p>Your Points: {{ current_user.points }} (Level {{ current_user.level }})</p>
+    </div>
+
+    <div class="leaderboard-list">
+        <h2>Top 5 Students</h2>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                    <th>Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in top_users %}
+                    <tr class="{{ 'current-user' if user.id == current_user.id else '' }}">
+                        <td>#{{ loop.index }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.points }}</td>
+                        <td>Level {{ user.level }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,2 +1,58 @@
-<!-- Create mission page -->
+{% extends "base.html" %}
 
+{% block title %}Create Mission - Classk{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="create-mission">
+    <h1>Create New Mission</h1>
+    <form method="POST" action="{{ url_for('missions.create') }}" enctype="multipart/form-data" id="createMissionForm">
+        <div class="form-group">
+            <label for="title">Title *</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description *</label>
+            <textarea id="description" name="description" rows="5" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" name="category" required>
+                <option value="">Select category</option>
+                <option value="Help/Favor">Help/Favor</option>
+                <option value="Lost & Found">Lost & Found</option>
+                <option value="Team/Study Group">Team/Study Group</option>
+                <option value="Event">Event</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="difficulty-group" style="display: none;">
+            <label for="difficulty">Difficulty *</label>
+            <select id="difficulty" name="difficulty">
+                <option value="">Select difficulty</option>
+                <option value="Easy">Easy (20 points)</option>
+                <option value="Medium">Medium (40 points)</option>
+                <option value="Hard">Hard (60 points)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="attachment">Attachment (Optional)</label>
+            <input type="file" id="attachment" name="attachment" accept=".png,.jpg,.jpeg,.gif,.pdf">
+            <small>Allowed formats: PNG, JPG, GIF, PDF (max 16MB)</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Mission</button>
+        <a href="{{ url_for('missions.list_missions') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/missions.js') }}"></script>
+{% endblock %}
