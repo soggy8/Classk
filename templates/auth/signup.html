@@ -8,30 +8,79 @@
 
 {% block content %}
 <div class="auth-container">
+    <div class="background-glow"></div>
+
     <div class="auth-card">
-        <h2>Sign Up</h2>
+        <div class="brand">
+            <div class="brand-logo">C</div>
+            <div class="brand-name">Classk</div>
+        </div>
+
+        <h1 class="title">Create your Classk account ✨</h1>
+        <p class="subtitle">
+            Join other students who <span class="highlight">learn smarter</span>, not harder.
+        </p>
+
         <form method="POST" action="{{ url_for('auth.signup') }}" id="signupForm">
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required autofocus>
+                <div class="input-wrapper">
+                    <input type="text" id="name" name="name"
+                           placeholder="Filip Mihailov" required autofocus>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <div class="input-wrapper">
+                    <input type="email" id="email" name="email"
+                           placeholder="you@example.com" required>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" required minlength="6">
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password"
+                           placeholder="Create a strong password" required minlength="6">
+                    <button type="button" class="toggle-password">Show</button>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="major_group">Major/Group</label>
-                <input type="text" id="major_group" name="major_group" required 
-                       placeholder="e.g., Computer Science, Engineering">
+                <div class="input-wrapper">
+                    <input type="text" id="major_group" name="major_group" required
+                           placeholder="e.g., Computer Science, Engineering">
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+
+            <div class="helper-row helper-small">
+                At least 8 characters, 1 number.
+            </div>
+
+            <button type="submit" class="btn-primary">Sign up</button>
         </form>
+
+        <div class="divider">
+            <span></span>
+            <p>or continue with</p>
+            <span></span>
+        </div>
+
+        <div class="social-row">
+            <button class="social-btn" title="Continue with Google">G</button>
+            <button class="social-btn" title="Continue with Apple"></button>
+            <button class="social-btn" title="Continue with Microsoft">M</button>
+        </div>
+
+        <p class="motivation">
+            This is your sign to start your <span>next study streak</span> 💜
+        </p>
+
         <p class="auth-link">
-            Already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+            Already have an account?
+            <a href="{{ url_for('auth.login') }}">Login</a>
         </p>
     </div>
 </div>

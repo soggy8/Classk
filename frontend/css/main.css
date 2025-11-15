@@ -20,12 +20,18 @@ body {
     padding: 0 20px;
 }
 
-/* Navigation */
+/* ============================
+   Navigation bar
+   ============================ */
+
 .navbar {
-    background-color: #2c3e50;
+    background: #020617; /* deep navy */
     color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.9rem 0;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.6);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
 .navbar .container {
@@ -35,10 +41,11 @@ body {
 }
 
 .nav-brand a {
-    color: white;
+    color: #f9fafb;
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: bold;
+    letter-spacing: 0.04em;
 }
 
 .nav-menu {
@@ -49,13 +56,33 @@ body {
 }
 
 .nav-menu a {
-    color: white;
+    color: #e5e7eb;
     text-decoration: none;
-    transition: opacity 0.3s;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 0.15rem;
+    transition: color 0.18s ease;
+}
+
+.nav-menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.25rem;
+    width: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #a855ff, #ec4899);
+    transition: width 0.18s ease;
 }
 
 .nav-menu a:hover {
-    opacity: 0.8;
+    color: #f9fafb;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
 }
 
 .user-info {
@@ -63,9 +90,21 @@ body {
     font-size: 0.9rem;
 }
 
-/* Main content */
+/* Responsive nav */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-end;
+    }
+}
+
+/* ============================
+   Main content
+   ============================ */
+
 .main-content {
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 80px); /* header only now */
     padding: 2rem 0;
 }
 
@@ -98,7 +137,10 @@ body {
     border: 1px solid #bee5eb;
 }
 
-/* Buttons */
+/* ============================
+   Buttons
+   ============================ */
+
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
@@ -172,7 +214,10 @@ body {
     text-decoration: underline;
 }
 
-/* Hero section */
+/* ============================
+   Hero section (home)
+   ============================ */
+
 .hero-section {
     text-align: center;
     padding: 3rem 0;
@@ -196,7 +241,10 @@ body {
     justify-content: center;
 }
 
-/* Stats grid */
+/* ============================
+   Stats
+   ============================ */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -222,16 +270,10 @@ body {
     color: #7f8c8d;
 }
 
-/* Footer */
-.footer {
-    background-color: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 1.5rem 0;
-    margin-top: 3rem;
-}
+/* ============================
+   Forms (shared)
+   ============================ */
 
-/* Forms */
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -275,16 +317,27 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .nav-menu {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
     .hero-section h1 {
         font-size: 2rem;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
     }
+}
+/* ========== Glassy navbar background only ========== */
+.navbar {
+    /* GLASS BACKGROUND (same vibe as auth card) */
+    background: rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    /* subtle shadow like the auth card */
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.55);
+}
+
+/* make sure the inner container doesn't override the glass */
+.navbar .container {
+    background: transparent;
 }

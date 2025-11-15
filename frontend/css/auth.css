@@ -1,52 +1,365 @@
-/* Authentication page styles */
+/* ================================ CLASSK AUTH PAGES (LOGIN/SIGNUP) ================================ */
+/* Font + page background (only on auth pages that load this file) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+body {
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0;
+    color: #111827;
+    /* Full screen gradient */
+    background: radial-gradient(circle at top, #a855ff 0%, #4c1d95 35%, #03001c 100%);
+}
+
+/* ========================================= Make the auth section FULL-WIDTH (break out of the 1200px .container) ========================================= */
 .auth-container {
+    position: relative;
+    /* break out of centered container */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    min-height: calc(100vh - 160px);
+    /* space for navbar + footer */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 60vh;
-    padding: 2rem 0;
+    padding: 2.5rem 0 3rem;
+    overflow: hidden;
 }
 
+/* Glows behind the card */
+.background-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.background-glow::before,
+.background-glow::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 999px;
+    filter: blur(120px);
+    opacity: 0.4;
+}
+
+.background-glow::before {
+    background: #8b5cf6;
+    top: -150px;
+    left: -120px;
+}
+
+.background-glow::after {
+    background: #ec4899;
+    bottom: -150px;
+    right: -150px;
+}
+
+/* ========================================= Glass card ========================================= */
 .auth-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative;
     width: 100%;
     max-width: 450px;
+    padding: 2.5rem;
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    z-index: 1;
+    color: #f9fafb;
+    animation: fadeInAuth 0.4s ease;
 }
 
-.auth-card h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #2c3e50;
-    font-size: 2rem;
+@keyframes fadeInAuth {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+/* ========================================= Branding ========================================= */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.brand-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #a855ff, #ec4899);
+    color: #f9fafb;
+    font-size: 18px;
+    font-weight: 700;
+    box-shadow: 0 8px 18px rgba(88, 28, 135, 0.6);
+}
+
+.brand-name {
+    color: #f9fafb;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Titles */
+.title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.highlight {
+    color: #e9d5ff;
+    font-weight: 500;
+}
+
+/* ========================================= Form ========================================= */
 .auth-card form {
     margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    color: #e5e7eb;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.6rem 2.3rem 0.6rem 0.9rem;
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(15, 23, 42, 0.15);
+    color: #f9fafb;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.16s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: #94a3b8;
+}
+
+.input-wrapper input:focus {
+    border-color: #a855ff;
+    box-shadow: 0 0 0 1px rgba(168, 85, 255, 0.7);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+/* show/hide password */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #cbd5f5;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* Helper row (keep me signed in / forgot) */
+.helper-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.3rem;
+    font-size: 11px;
+    color: #e5e7eb;
+}
+
+.helper-row a {
+    color: #e9d5ff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ========================================= Primary button ========================================= */
+.btn-primary,
+.auth-card button[type="submit"] {
+    width: 100%;
+    padding: 0.7rem 0;
+    border-radius: 16px;
+    border: none;
+    background: linear-gradient(135deg, #a855ff, #ec4899);
+    color: #f9fafb;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 0.6rem;
+    box-shadow: 0 14px 28px rgba(76, 29, 149, 0.5), 0 0 0 1px rgba(248, 250, 252, 0.1);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.btn-primary:hover,
+.auth-card button[type="submit"]:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+}
+
+/* ========================================= Divider + socials ========================================= */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #9ca3af;
+    margin: 10px 0 6px;
+}
+
+.divider span {
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(to right, transparent, rgba(148, 163, 184, 0.5), transparent);
+}
+
+.social-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+.social-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(15, 23, 42, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: #e5e7eb;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.social-btn:hover {
+    border-color: #a855ff;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.7);
+    transform: translateY(-1px);
+}
+
+/* ========================================= Bottom texts ========================================= */
+.motivation {
+    font-size: 11px;
+    text-align: center;
+    color: #e5e7eb;
+    margin-top: 4px;
+}
+
+.motivation span {
+    color: #f9a8d4;
+    font-weight: 500;
 }
 
 .auth-link {
     text-align: center;
     margin-top: 1rem;
-    color: #7f8c8d;
+    color: #e5e7eb;
+    font-size: 0.85rem;
 }
 
 .auth-link a {
-    color: #3498db;
+    color: #f9a8d4;
     text-decoration: none;
+    font-weight: 500;
 }
 
 .auth-link a:hover {
     text-decoration: underline;
 }
 
-/* Mobile responsive */
+/* ========================================= Footer override ONLY on auth pages (remove blue block, let gradient show) ========================================= */
+.footer {
+    background: transparent;
+    color: #e5e7eb;
+    margin-top: 0;
+}
+
+/* ========================================= Responsive ========================================= */
 @media (max-width: 768px) {
     .auth-card {
-        padding: 1.5rem;
+        padding: 1.8rem;
         margin: 1rem;
+        border-radius: 22px;
     }
+
+    .title {
+        font-size: 19px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+}
+/* Make autofilled inputs look the same as normal ones */
+.input-wrapper input:-webkit-autofill,
+.input-wrapper input:-webkit-autofill:hover,
+.input-wrapper input:-webkit-autofill:focus,
+.input-wrapper input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0.15) inset;
+    box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0.15) inset;
+    -webkit-text-fill-color: #f9fafb;
+    caret-color: #f9fafb;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(15, 23, 42, 0.15);
+    transition: background-color 5000s ease-in-out 0s;
+}
+/* Make autofilled inputs look & behave like normal ones */
+.input-wrapper input:-webkit-autofill,
+.input-wrapper input:-webkit-autofill:hover,
+.input-wrapper input:-webkit-autofill:active {
+    /* default state (not focused) */
+    -webkit-box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.15) inset !important;
+    box-shadow: 0 0 0 1000px rgba(15, 23, 42, 0.15) inset !important;
+    background: rgba(15, 23, 42, 0.15) !important;
+    -webkit-text-fill-color: #f9fafb !important;
+    caret-color: #f9fafb !important;
+}
+
+/* focused autofill = same look as your normal :focus style */
+.input-wrapper input:-webkit-autofill:focus {
+    -webkit-box-shadow:
+        0 0 0 1000px rgba(15, 23, 42, 0.5) inset,
+        0 0 0 1px rgba(168, 85, 255, 0.7) !important;
+    box-shadow:
+        0 0 0 1000px rgba(15, 23, 42, 0.5) inset,
+        0 0 0 1px rgba(168, 85, 255, 0.7) !important;
+    background: rgba(15, 23, 42, 0.5) !important;
+    border-color: #a855ff !important;
 }
