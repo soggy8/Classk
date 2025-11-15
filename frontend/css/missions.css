@@ -1,5 +1,6 @@
-/* Mission-related styles */
+/* Mission-related styles - Classk Official Design System */
 
+/* Missions Header */
 .missions-header {
     display: flex;
     justify-content: space-between;
@@ -8,65 +9,121 @@
 }
 
 .missions-header h1 {
-    color: #2c3e50;
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #F9FAFB;
+    margin: 0;
 }
 
-/* Filters */
+/* Filters - Glassmorphism Card */
 .filters {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    padding: 28px 32px;
+    border-radius: 26px;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    position: relative;
+}
+
+.filters::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
 }
 
 .filters h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #E5E7EB;
     margin-bottom: 1rem;
-    color: #2c3e50;
 }
 
 .filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .filter-btn {
-    padding: 0.5rem 1rem;
-    background-color: #ecf0f1;
-    color: #2c3e50;
+    padding: 10px 20px;
+    background: rgba(15, 23, 42, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.70);
+    color: #E5E7EB;
     text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    border-radius: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .filter-btn:hover {
-    background-color: #bdc3c7;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #A855FF;
+    transform: translateY(-1px);
 }
 
 .filter-btn.active {
-    background-color: #3498db;
-    color: white;
+    background: linear-gradient(135deg, #A855FF, #EC4899);
+    border-color: transparent;
+    color: #F9FAFB;
+    box-shadow: 0 14px 28px rgba(76, 29, 149, 0.5);
 }
 
-/* Missions grid */
+/* Missions Grid */
 .missions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.5rem;
 }
 
+/* Mission Card - Glassmorphism */
 .mission-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    padding: 28px 32px;
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.mission-card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
 .mission-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    border-color: rgba(168, 85, 255, 0.6);
+    box-shadow: 0 32px 80px rgba(76, 29, 149, 0.7);
+}
+
+.mission-card:hover::before {
+    opacity: 1;
 }
 
 .mission-header {
@@ -74,36 +131,49 @@
     justify-content: space-between;
     align-items: start;
     margin-bottom: 1rem;
+    gap: 0.75rem;
 }
 
 .mission-header h3 {
     margin: 0;
     flex: 1;
+    font-family: 'Poppins', sans-serif;
 }
 
 .mission-header h3 a {
-    color: #2c3e50;
+    color: #F9FAFB;
     text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    transition: color 0.2s;
 }
 
 .mission-header h3 a:hover {
-    color: #3498db;
+    background: linear-gradient(135deg, #A855FF, #EC4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .mission-category {
-    background-color: #3498db;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    background: linear-gradient(135deg, #A855FF, #EC4899);
+    color: #F9FAFB;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 500;
-    margin-left: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    white-space: nowrap;
+    box-shadow: 0 8px 18px rgba(88, 28, 135, 0.4);
 }
 
 .mission-description {
-    color: #7f8c8d;
+    color: #94A3B8;
     margin-bottom: 1rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .mission-meta {
@@ -116,55 +186,66 @@
 .mission-status,
 .mission-difficulty,
 .mission-points {
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
     font-weight: 500;
+    font-family: 'Poppins', sans-serif;
 }
 
 .mission-status {
-    background-color: #ecf0f1;
-    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.18);
+    color: #E5E7EB;
+    border: 1px solid rgba(148, 163, 184, 0.30);
 }
 
 .status-open {
-    background-color: #3498db;
-    color: white;
+    background: linear-gradient(135deg, rgba(168, 85, 255, 0.6), rgba(139, 92, 246, 0.6));
+    border-color: #A855FF;
+    color: #F9FAFB;
 }
 
 .status-accepted {
-    background-color: #f39c12;
-    color: white;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.6), rgba(219, 39, 119, 0.6));
+    border-color: #EC4899;
+    color: #F9FAFB;
 }
 
 .status-completed {
-    background-color: #27ae60;
-    color: white;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.6), rgba(22, 163, 74, 0.6));
+    border-color: #22C55E;
+    color: #F9FAFB;
 }
 
 .mission-difficulty {
-    background-color: #ecf0f1;
-    color: #2c3e50;
+    background: rgba(255, 255, 255, 0.18);
+    color: #E5E7EB;
+    border: 1px solid rgba(148, 163, 184, 0.30);
 }
 
 .difficulty-easy {
-    background-color: #27ae60;
-    color: white;
+    background: rgba(34, 197, 94, 0.3);
+    border-color: #22C55E;
+    color: #86EFAC;
 }
 
 .difficulty-medium {
-    background-color: #f39c12;
-    color: white;
+    background: rgba(251, 191, 36, 0.3);
+    border-color: #FBBF24;
+    color: #FDE68A;
 }
 
 .difficulty-hard {
-    background-color: #e74c3c;
-    color: white;
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #EF4444;
+    color: #FCA5A5;
 }
 
 .mission-points {
-    background-color: #9b59b6;
-    color: white;
+    background: linear-gradient(135deg, #A855FF, #EC4899);
+    border: none;
+    color: #F9FAFB;
+    box-shadow: 0 8px 18px rgba(88, 28, 135, 0.4);
 }
 
 .mission-footer {
@@ -172,19 +253,28 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 1rem;
-    border-top: 1px solid #ecf0f1;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin-top: 1rem;
 }
 
 .mission-footer small {
-    color: #7f8c8d;
+    color: #94A3B8;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 .no-missions {
     text-align: center;
     padding: 3rem;
-    color: #7f8c8d;
-    background: white;
-    border-radius: 8px;
+    color: #94A3B8;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    border-radius: 26px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 /* Mission detail */
@@ -258,21 +348,293 @@
     flex-wrap: wrap;
 }
 
-/* Create mission */
+/* Create mission - Glassmorphism Card */
 .create-mission {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    padding: 32px;
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    position: relative;
+    overflow: visible;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.create-mission::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -30%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+}
+
+.create-mission::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
 }
 
 .create-mission h1 {
-    margin-bottom: 2rem;
-    color: #2c3e50;
+    font-family: 'Poppins', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #F9FAFB;
+    margin-bottom: 28px;
+    text-align: center;
 }
 
 .create-mission form {
     margin-bottom: 1rem;
+    position: relative;
+    overflow: visible;
+}
+
+.create-mission .form-group {
+    margin-bottom: 20px;
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+}
+
+.create-mission .form-group:has(.custom-select-wrapper.open) {
+    z-index: 1002;
+}
+
+.create-mission .form-group label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #E5E7EB;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.create-mission .form-group input[type="text"],
+.create-mission .form-group textarea,
+.create-mission .form-group select,
+.create-mission .form-group input[type="file"] {
+    width: 100%;
+    padding: 12px 36px 12px 12px;
+    background: rgba(15, 23, 42, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.70);
+    border-radius: 14px;
+    color: #F9FAFB;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.create-mission .form-group input[type="text"]:focus,
+.create-mission .form-group textarea:focus,
+.create-mission .form-group select:focus {
+    outline: none;
+    border-color: #A855FF;
+    background: rgba(15, 23, 42, 0.25);
+    box-shadow: 0 0 0 3px rgba(168, 85, 255, 0.2);
+}
+
+.create-mission .form-group input[type="file"] {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.create-mission .form-group input[type="file"]::file-selector-button {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(148, 163, 184, 0.70);
+    border-radius: 12px;
+    color: #E5E7EB;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.create-mission .form-group input[type="file"]::file-selector-button:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: #A855FF;
+}
+
+.create-mission .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.create-mission .form-group select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23E5E7EB' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+/* Custom Dropdown Styling for better browser support */
+.create-mission .form-group {
+    position: relative;
+}
+
+.create-mission .form-group select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Style the dropdown options popup - Enhanced to match design system */
+.create-mission .form-group select option {
+    background: rgba(3, 0, 28, 0.98) !important;
+    color: #F9FAFB !important;
+    padding: 14px 16px;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    min-height: 40px;
+}
+
+.create-mission .form-group select option:hover,
+.create-mission .form-group select option:focus {
+    background: rgba(168, 85, 255, 0.3) !important;
+    color: #F9FAFB !important;
+}
+
+.create-mission .form-group select option:checked {
+    background: linear-gradient(135deg, rgba(168, 85, 255, 0.5), rgba(236, 72, 153, 0.5)) !important;
+    color: #F9FAFB !important;
+}
+
+.create-mission .form-group select option[value=""] {
+    color: #94A3B8;
+    font-style: italic;
+}
+
+.create-mission .form-group select option:disabled {
+    color: #94A3B8;
+    font-style: italic;
+}
+
+/* Firefox specific styling for dropdown */
+@-moz-document url-prefix() {
+    .create-mission .form-group select {
+        background-color: rgba(15, 23, 42, 0.15) !important;
+        color: #F9FAFB !important;
+    }
+    
+    .create-mission .form-group select option {
+        background: rgba(3, 0, 28, 0.98) !important;
+        color: #F9FAFB !important;
+    }
+    
+    .create-mission .form-group select option:checked {
+        background: linear-gradient(135deg, rgba(168, 85, 255, 0.5), rgba(236, 72, 153, 0.5)) !important;
+        color: #F9FAFB !important;
+    }
+    
+    .create-mission .form-group select option:hover {
+        background: rgba(168, 85, 255, 0.3) !important;
+        color: #F9FAFB !important;
+    }
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) - Enhanced dropdown styling */
+.create-mission .form-group select::-webkit-list-button {
+    display: none;
+}
+
+.create-mission .form-group select::-webkit-dropdown-menu {
+    background: rgba(3, 0, 28, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    border-radius: 14px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+}
+
+.create-mission .form-group select::-webkit-dropdown-menu-item {
+    background: rgba(3, 0, 28, 0.98) !important;
+    color: #F9FAFB !important;
+    padding: 14px 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.create-mission .form-group select::-webkit-dropdown-menu-item:hover {
+    background: rgba(168, 85, 255, 0.3) !important;
+}
+
+.create-mission .form-group select::-webkit-dropdown-menu-item:checked {
+    background: linear-gradient(135deg, rgba(168, 85, 255, 0.5), rgba(236, 72, 153, 0.5)) !important;
+    color: #F9FAFB !important;
+}
+
+.create-mission .form-group small {
+    display: block;
+    margin-top: 6px;
+    color: #94A3B8;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+/* Difficulty Group - Smooth Animation */
+#difficulty-group {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+    margin-bottom: 0;
+    transform: translateY(-10px);
+}
+
+#difficulty-group.show {
+    display: block;
+    opacity: 1;
+    max-height: 150px;
+    margin-bottom: 20px;
+    transform: translateY(0);
+}
+
+/* Highlight difficulty select when visible */
+#difficulty-group.show select {
+    border-color: rgba(168, 85, 255, 0.5);
+    background: rgba(15, 23, 42, 0.2);
+    box-shadow: 0 0 0 2px rgba(168, 85, 255, 0.15);
+}
+
+#difficulty-group.show select:focus {
+    border-color: #A855FF;
+    box-shadow: 0 0 0 3px rgba(168, 85, 255, 0.3);
+}
+
+.create-mission .form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+    justify-content: flex-end;
+}
+
+.create-mission .form-actions .btn {
+    min-width: 140px;
 }
 
 /* Responsive */
@@ -283,8 +645,37 @@
         gap: 1rem;
     }
     
+    .missions-header h1 {
+        font-size: 22px;
+    }
+    
+    .filters {
+        padding: 20px 24px;
+    }
+    
     .missions-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .mission-card {
+        padding: 24px;
+    }
+    
+    .create-mission {
+        padding: 24px;
+        margin: 0 10px;
+    }
+    
+    .create-mission h1 {
+        font-size: 22px;
+    }
+    
+    .create-mission .form-actions {
+        flex-direction: column;
+    }
+    
+    .create-mission .form-actions .btn {
+        width: 100%;
     }
     
     .mission-detail {

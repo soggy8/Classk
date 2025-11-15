@@ -1,0 +1,168 @@
+/* Custom Dropdown Select Component - Classk Design System */
+
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.custom-select-wrapper.open {
+    z-index: 1001;
+}
+
+.custom-select-trigger {
+    width: 100%;
+    padding: 12px 36px 12px 12px;
+    background: rgba(15, 23, 42, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.70);
+    border-radius: 14px;
+    color: #F9FAFB;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-select-trigger::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23E5E7EB' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.custom-select-wrapper.open .custom-select-trigger::after {
+    transform: rotate(180deg);
+}
+
+.custom-select-trigger:hover {
+    background: rgba(15, 23, 42, 0.25);
+    border-color: #A855FF;
+}
+
+.custom-select-wrapper.open .custom-select-trigger,
+.custom-select-trigger:focus {
+    outline: none;
+    border-color: #A855FF;
+    background: rgba(15, 23, 42, 0.25);
+    box-shadow: 0 0 0 3px rgba(168, 85, 255, 0.2);
+}
+
+.custom-select-dropdown {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    z-index: 1;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.custom-select-wrapper.open .custom-select-dropdown {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Allow content to be visible when expanded */
+.custom-select-dropdown {
+    min-height: 0;
+}
+
+.custom-select-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+}
+
+
+.custom-select-dropdown::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    margin: 8px;
+}
+
+.custom-select-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 255, 0.4);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.custom-select-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 255, 0.6);
+}
+
+.custom-select-option {
+    padding: 14px 16px;
+    color: #F9FAFB;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    position: relative;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.custom-select-option:last-child {
+    border-bottom: none;
+}
+
+.custom-select-option:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(168, 85, 255, 0.5);
+    color: #F9FAFB;
+    transform: translateX(2px);
+}
+
+.custom-select-option.selected {
+    background: linear-gradient(135deg, rgba(168, 85, 255, 0.5), rgba(236, 72, 153, 0.5));
+    color: #F9FAFB;
+    font-weight: 500;
+    border-color: rgba(168, 85, 255, 0.6);
+    box-shadow: 0 8px 18px rgba(88, 28, 135, 0.3);
+}
+
+.custom-select-option.placeholder {
+    display: none;
+}
+
+/* Hide native select */
+.custom-select-wrapper select {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+}
+

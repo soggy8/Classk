@@ -6,16 +6,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const difficultyGroup = document.getElementById('difficulty-group');
     const difficultySelect = document.getElementById('difficulty');
 
-    // Show/hide difficulty field based on category
+    // Show/hide difficulty field based on category with smooth animation
     if (categorySelect && difficultyGroup) {
         categorySelect.addEventListener('change', function() {
             if (this.value === 'Help/Favor') {
+                // Show difficulty field with animation
                 difficultyGroup.style.display = 'block';
                 difficultySelect.setAttribute('required', 'required');
+                // Trigger animation
+                setTimeout(function() {
+                    difficultyGroup.classList.add('show');
+                    // Re-initialize custom select for difficulty after it's shown
+                    setTimeout(function() {
+                        if (typeof reinitCustomSelects === 'function') {
+                            reinitCustomSelects();
+                        }
+                    }, 50);
+                }, 10);
             } else {
-                difficultyGroup.style.display = 'none';
+                // Hide difficulty field with animation
+                difficultyGroup.classList.remove('show');
                 difficultySelect.removeAttribute('required');
                 difficultySelect.value = '';
+                // Remove display after animation
+                setTimeout(function() {
+                    if (!difficultyGroup.classList.contains('show')) {
+                        difficultyGroup.style.display = 'none';
+                    }
+                }, 300);
             }
         });
     }
