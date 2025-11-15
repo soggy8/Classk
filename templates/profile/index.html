@@ -3,76 +3,136 @@
 {% block title %}{{ user.name }}'s Profile - Classk{% endblock %}
 
 {% block content %}
+
 <div class="profile-page">
-    <div class="profile-header">
-        <h1>{{ user.name }}'s Profile</h1>
-        <div class="profile-stats">
-            <div class="stat-item">
-                <h2>{{ user.points }}</h2>
-                <p>Total Points</p>
+    <div class="profile-bg"></div>
+
+    <div class="profile-layout">
+        <!-- Top wide card with PFP + Name -->
+        <div class="profile-card card">
+            <div class="pfp-circle">
+                {{ user.name[0]|upper }}
             </div>
-            <div class="stat-item">
-                <h2>Level {{ user.level }}</h2>
-                <p>Level</p>
-            </div>
-            <div class="stat-item">
-                <h2>{{ user.major_group }}</h2>
-                <p>Major/Group</p>
+            <div class="profile-text">
+                <p class="profile-name">{{ user.name }}'s Profile</p>
+                <p class="profile-subtitle">
+                    Level {{ user.level }} • {{ user.major_group }}
+                </p>
             </div>
         </div>
-    </div>
 
-    <div class="profile-sections">
-        <section class="profile-section">
-            <h2>Completed Missions ({{ completed_missions|length }})</h2>
-            {% if completed_missions %}
-                <div class="missions-list">
-                    {% for mission in completed_missions %}
-                        <div class="mission-item">
-                            <h4><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></h4>
-                            <p>{{ mission.category }} - {{ mission.points_awarded }} points</p>
-                            <small>Completed: {{ mission.completed_at.strftime('%Y-%m-%d') }}</small>
-                        </div>
-                    {% endfor %}
+        <!-- Three small stats cards -->
+        <div class="profile-row">
+            <div class="card small">
+                <div class="card-content">
+                    <p class="card-label">Total Points</p>
+                    <p class="card-value">{{ user.points }}</p>
                 </div>
-            {% else %}
-                <p>No completed missions yet.</p>
-            {% endif %}
-        </section>
-
-        <section class="profile-section">
-            <h2>Created Missions ({{ created_missions|length }})</h2>
-            {% if created_missions %}
-                <div class="missions-list">
-                    {% for mission in created_missions %}
-                        <div class="mission-item">
-                            <h4><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></h4>
-                            <p>{{ mission.category }} - Status: {{ mission.status }}</p>
-                            <small>Created: {{ mission.created_at.strftime('%Y-%m-%d') }}</small>
-                        </div>
-                    {% endfor %}
+            </div>
+            <div class="card small">
+                <div class="card-content">
+                    <p class="card-label">Level</p>
+                    <p class="card-value">Level {{ user.level }}</p>
                 </div>
-            {% else %}
-                <p>No created missions yet.</p>
-            {% endif %}
-        </section>
+            </div>
+            <div class="card small">
+                <div class="card-content">
+                    <p class="card-label">Major / Group</p>
+                    <p class="card-value">{{ user.major_group }}</p>
+                </div>
+            </div>
+        </div>
 
-        <section class="profile-section">
-            <h2>Accepted Missions ({{ accepted_missions|length }})</h2>
+        <!-- Large center card: Current (Accepted) missions -->
+        <div class="card large-center">
+            <div class="card-header">
+                <p class="card-title">Current Missions ({{ accepted_missions|length }})</p>
+            </div>
+
             {% if accepted_missions %}
                 <div class="missions-list">
                     {% for mission in accepted_missions %}
                         <div class="mission-item">
-                            <h4><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></h4>
-                            <p>{{ mission.category }} - Status: {{ mission.status }}</p>
-                            <small>Accepted: {{ mission.created_at.strftime('%Y-%m-%d') }}</small>
+                            <h4>
+                                <a href="{{ url_for('missions.detail', mission_id=mission.id) }}">
+                                    {{ mission.title }}
+                                </a>
+                            </h4>
+                            <p class="mission-meta">
+                                {{ mission.category }} • Status: {{ mission.status }}
+                            </p>
+                            <small class="mission-date">
+                                Accepted: {{ mission.created_at.strftime('%Y-%m-%d') }}
+                            </small>
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <p>No accepted missions yet.</p>
+                <p class="empty-state">No accepted missions yet.</p>
             {% endif %}
-        </section>
+        </div>
+
+        <!-- Bottom row: Completed & Created Missions -->
+        <div class="bottom-row">
+            <!-- Completed Missions -->
+            <div class="card bottom">
+                <div class="card-header">
+                    <p class="card-title">Completed Missions ({{ completed_missions|length }})</p>
+                </div>
+
+                {% if completed_missions %}
+                    <div class="missions-list">
+                        {% for mission in completed_missions %}
+                            <div class="mission-item">
+                                <h4>
+                                    <a href="{{ url_for('missions.detail', mission_id=mission.id) }}">
+                                        {{ mission.title }}
+                                    </a>
+                                </h4>
+                                <p class="mission-meta">
+                                    {{ mission.category }} • {{ mission.points_awarded }} points
+                                </p>
+                                <small class="mission-date">
+                                    Completed: {{ mission.completed_at.strftime('%Y-%m-%d') }}
+                                </small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No completed missions yet.</p>
+                {% endif %}
+            </div>
+
+            <!-- Created Missions (Mission Invites) -->
+            <div class="card bottom">
+                <div class="card-header">
+                    <p class="card-title">Mission Invites ({{ created_missions|length }})</p>
+                </div>
+
+                {% if created_missions %}
+                    <div class="missions-list">
+                        {% for mission in created_missions %}
+                            <div class="mission-item">
+                                <h4>
+                                    <a href="{{ url_for('missions.detail', mission_id=mission.id) }}">
+                                        {{ mission.title }}
+                                    </a>
+                                </h4>
+                                <p class="mission-meta">
+                                    {{ mission.category }} • Status: {{ mission.status }}
+                                </p>
+                                <small class="mission-date">
+                                    Created: {{ mission.created_at.strftime('%Y-%m-%d') }}
+                                </small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="empty-state">No mission invites yet.</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
+
 {% endblock %}

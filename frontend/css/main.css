@@ -465,3 +465,189 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* =============================
+   PROFILE PAGE (Classk style)
+   ============================= */
+
+.profile-page {
+    position: relative;
+    /* Let main-content handle vertical padding */
+    padding: 1rem 0 2rem;
+    /* Use Poppins only inside the profile area */
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Gradient background for profile only */
+.profile-bg {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top, #A855FF 0%, #4C1D95 35%, #03001C 100%);
+    z-index: -1;
+}
+
+/* Main layout wrapper inside the page-wide container */
+.profile-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Glassmorphism cards */
+.profile-page .card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    color: #F9FAFB;
+    padding: 18px 22px;
+}
+
+/* Top profile card */
+.profile-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+}
+
+/* PFP circle (initial or avatar) */
+.pfp-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #A855FF, #EC4899);
+    box-shadow: 0 8px 18px rgba(88, 28, 135, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #F9FAFB;
+    flex-shrink: 0;
+}
+
+.profile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #F9FAFB;
+}
+
+.profile-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    color: #E5E7EB;
+}
+
+/* Stats row */
+.profile-row {
+    display: flex;
+    gap: 20px;
+}
+
+.profile-row .card.small {
+    flex: 1;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-label {
+    font-size: 13px;
+    color: #E5E7EB;
+    font-weight: 300;
+}
+
+.card-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #F9FAFB;
+}
+
+/* Center big card & bottom row */
+.large-center {
+    min-height: 240px;
+}
+
+.bottom-row {
+    display: flex;
+    gap: 20px;
+}
+
+.bottom-row .card.bottom {
+    flex: 1;
+}
+
+/* Card headings & mission lists */
+.card-header {
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #F9FAFB;
+}
+
+.missions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.mission-item h4 {
+    margin-bottom: 2px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.mission-item a {
+    color: #E9D5FF;
+    text-decoration: none;
+}
+
+.mission-item a:hover {
+    text-decoration: underline;
+}
+
+.mission-meta {
+    font-size: 12px;
+    color: #E5E7EB;
+}
+
+.mission-date {
+    font-size: 11px;
+    color: #94A3B8;
+}
+
+.empty-state {
+    font-size: 13px;
+    color: #94A3B8;
+}
+
+/* RESPONSIVE: stack rows on small screens */
+@media (max-width: 800px) {
+    .profile-row,
+    .bottom-row {
+        flex-direction: column;
+    }
+
+    .large-center {
+        min-height: 200px;
+    }
+}
