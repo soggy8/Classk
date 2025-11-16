@@ -6,6 +6,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from backend import db
 from backend.models.user import User
 from backend.models.group import Group
+from backend.config import Config
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -49,12 +50,17 @@ def signup():
         # Validation
         if not all([name, email, password, major_group]):
             flash('Please fill in all fields.', 'error')
-            return render_template('auth/signup.html')
+            return render_template('auth/signup.html', majors=Config.AVAILABLE_MAJORS)
+        
+        # Validate major is from predefined list
+        if major_group not in Config.AVAILABLE_MAJORS:
+            flash('Please select a valid major from the list.', 'error')
+            return render_template('auth/signup.html', majors=Config.AVAILABLE_MAJORS)
         
         # Check if user exists
         if User.query.filter_by(email=email).first():
             flash('Email already registered.', 'error')
-            return render_template('auth/signup.html')
+            return render_template('auth/signup.html', majors=Config.AVAILABLE_MAJORS)
         
         # Create new user
         user = User(
@@ -78,9 +84,8 @@ def signup():
         flash('Registration successful! Please log in.', 'success')
         return redirect(url_for('auth.login'))
     
-    # Get available groups for dropdown
-    groups = Group.query.all()
-    return render_template('auth/signup.html', groups=groups)
+    # Pass available majors to template
+    return render_template('auth/signup.html', majors=Config.AVAILABLE_MAJORS)
 
 @auth_bp.route('/logout')
 @login_required

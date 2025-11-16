@@ -2,27 +2,43 @@
 /* Font + page background (only on auth pages that load this file) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+/* Override body and html styles only on auth pages - ensure gradient is visible */
+html,
 body {
-    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #A855FF 0%, #4C1D95 35%, #03001C 100%) !important;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #F9FAFB !important;
     margin: 0;
-    color: #111827;
-    /* Full screen gradient */
-    background: radial-gradient(circle at top, #a855ff 0%, #4c1d95 35%, #03001c 100%);
+    padding: 0;
 }
 
 /* ========================================= Make the auth section FULL-WIDTH (break out of the 1200px .container) ========================================= */
+/* Override main-content and container on auth pages */
+body .main-content {
+    padding: 0 !important;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body .main-content .container {
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100%;
+}
+
 .auth-container {
     position: relative;
-    /* break out of centered container */
     width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    min-height: calc(100vh - 160px);
-    /* space for navbar + footer */
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2.5rem 0 3rem;
+    padding: 2.5rem 20px 3rem;
     overflow: hidden;
 }
 
@@ -152,6 +168,18 @@ body {
 
 .input-wrapper {
     position: relative;
+}
+
+/* Custom select wrapper in auth forms */
+.auth-card .custom-select-wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+
+.auth-card .form-group {
+    position: relative;
+    overflow: visible;
 }
 
 .input-wrapper input {

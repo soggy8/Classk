@@ -2,40 +2,46 @@
 
 {% block title %}Home - Classk{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="hero-section">
 
     <div class="glow purple"></div>
     <div class="glow pink"></div>
 
-    <h1 class="title">Welcome to <span class="brand-accent">Classk</span></h1>
-    <p class="subtitle">Complete missions, earn points, and compete on leaderboards!</p>
-    
     {% if not current_user.is_authenticated %}
+        <h1 class="title">Welcome to <span class="brand-accent">Classk</span></h1>
+        <p class="subtitle">Complete missions, earn points, and compete on leaderboards!</p>
         <div class="cta-buttons">
             <a href="{{ url_for('auth.signup') }}" class="btn btn-primary">Get Started</a>
             <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Login</a>
         </div>
     {% else %}
-        <div class="welcome-back glass-card">
-            <h2>Welcome back, {{ current_user.name }}!</h2>
+        <h1 class="title">Welcome back, <span class="brand-accent">{{ current_user.name }}</span>!</h1>
+        <p class="subtitle">Ready to complete more missions and climb the leaderboard?</p>
+        
+        <div class="welcome-back">
             <div class="stats-grid">
-                <div class="stat-card glass-inner">
+                <div class="stat-card">
                     <h3>{{ current_user.points }}</h3>
-                    <p>Points</p>
+                    <p>Total Points</p>
                 </div>
-                <div class="stat-card glass-inner">
-                    <h3>Level {{ current_user.level }}</h3>
+                <div class="stat-card">
+                    <h3>{{ current_user.level }}</h3>
                     <p>Level</p>
                 </div>
-                <div class="stat-card glass-inner">
+                <div class="stat-card">
                     <h3>{{ current_user.major_group }}</h3>
-                    <p>Major/Group</p>
+                    <p>Group</p>
                 </div>
             </div>
             <div class="quick-actions">
                 <a href="{{ url_for('missions.create') }}" class="btn btn-primary">Create Mission</a>
                 <a href="{{ url_for('missions.list_missions') }}" class="btn btn-secondary">Browse Missions</a>
+                <a href="{{ url_for('leaderboard.index') }}" class="btn btn-secondary">View Leaderboard</a>
             </div>
         </div>
     {% endif %}
@@ -47,6 +53,33 @@
             <h2 class="section-title">Recent Missions</h2>
             <a href="{{ url_for('missions.list_missions') }}" class="view-all">View All Missions →</a>
         </div>
+        {% if recent_missions %}
+            <div class="missions-grid">
+                {% for mission in recent_missions[:6] %}
+                    <div class="mission-card">
+                        <div class="mission-header">
+                            <h3><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></h3>
+                            <span class="mission-category">{{ mission.category }}</span>
+                        </div>
+                        <p class="mission-description">{{ mission.description[:100] }}{% if mission.description|length > 100 %}...{% endif %}</p>
+                        <div class="mission-meta">
+                            <span class="mission-status status-{{ mission.status.lower() }}">{{ mission.status }}</span>
+                            {% if mission.difficulty %}
+                                <span class="mission-difficulty difficulty-{{ mission.difficulty.lower() }}">{{ mission.difficulty }}</span>
+                            {% endif %}
+                            <span class="mission-points">🎯 {{ mission.points }} points</span>
+                        </div>
+                        <div class="mission-footer">
+                            <small>{{ mission.group_name }} • {{ mission.created_at.strftime('%b %d, %Y') }}</small>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-missions">
+                <p>No missions yet. <a href="{{ url_for('missions.create') }}" style="color: #A855FF; text-decoration: none;">Create your first mission!</a></p>
+            </div>
+        {% endif %}
     </section>
 {% endif %}
 {% endblock %}

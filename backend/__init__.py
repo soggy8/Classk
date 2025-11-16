@@ -61,10 +61,20 @@ def create_app(config_name='default'):
     
     # Register root route
     from flask import render_template
+    from flask_login import current_user
     
     @app.route('/')
     def index():
         """Home page route"""
-        return render_template('index.html')
+        from backend.models.mission import Mission
+        from sqlalchemy.orm import joinedload
+        recent_missions = None
+        if current_user.is_authenticated:
+            # Get recent missions from all groups
+            recent_missions = Mission.query.options(joinedload(Mission.creator))\
+                .order_by(Mission.created_at.desc())\
+                .limit(6)\
+                .all()
+        return render_template('index.html', recent_missions=recent_missions)
     
     return app

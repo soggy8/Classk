@@ -4,6 +4,7 @@ Mission routes
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
+from sqlalchemy.orm import joinedload
 import os
 from backend import db
 from backend.models.mission import Mission
@@ -24,10 +25,11 @@ def list_missions():
     status = request.args.get('status')
     
     if current_user.is_authenticated:
-        query = Mission.query.filter_by(group_name=current_user.major_group)
+        # Show all missions to authenticated users (from all groups)
+        query = Mission.query.options(joinedload(Mission.creator))
     else:
-        # For non-authenticated users, show all missions (or none)
-        query = Mission.query.filter(False)  # Show no missions for non-authenticated users
+        # For non-authenticated users, show no missions
+        query = Mission.query.filter(False)
     
     if category:
         query = query.filter_by(category=category)
@@ -91,7 +93,10 @@ def create():
 @missions_bp.route('/<int:mission_id>')
 def detail(mission_id):
     """Mission detail page"""
-    mission = Mission.query.get_or_404(mission_id)
+    # Load mission with creator relationship
+    mission = Mission.query.options(
+        joinedload(Mission.creator)
+    ).get_or_404(mission_id)
     return render_template('missions/detail.html', mission=mission)
 
 @missions_bp.route('/<int:mission_id>/accept', methods=['POST'])

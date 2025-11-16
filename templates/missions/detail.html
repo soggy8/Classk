@@ -37,7 +37,7 @@
         {% endif %}
 
         <div class="mission-info">
-            <p><strong>Created by:</strong> {{ mission.creator.name }}</p>
+            <p><strong>Created by:</strong> {{ mission.creator.name }} ({{ mission.group_name }})</p>
             <p><strong>Created at:</strong> {{ mission.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
             {% if mission.assignee %}
                 <p><strong>Assigned to:</strong> {{ mission.assignee.name }}</p>

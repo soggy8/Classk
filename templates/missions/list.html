@@ -47,7 +47,7 @@
                     <span class="mission-points">{{ mission.points }} points</span>
                 </div>
                 <div class="mission-footer">
-                    <small>Created by {{ mission.creator.name }}</small>
+                    <small>Created by {{ mission.creator.name }} • {{ mission.group_name }}</small>
                     <a href="{{ url_for('missions.detail', mission_id=mission.id) }}" class="btn btn-sm btn-secondary">View Details</a>
                 </div>
             </div>

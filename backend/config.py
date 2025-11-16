@@ -31,6 +31,28 @@ class Config:
     
     # Level calculation (every 100 points = 1 level)
     POINTS_PER_LEVEL = 100
+    
+    # Available majors/groups
+    AVAILABLE_MAJORS = [
+        'Computer Science',
+        'Engineering',
+        'Business Administration',
+        'Medicine',
+        'Law',
+        'Arts & Humanities',
+        'Science',
+        'Education',
+        'Psychology',
+        'Social Sciences',
+        'Mathematics',
+        'Physics',
+        'Chemistry',
+        'Biology',
+        'Economics',
+        'Communications',
+        'Architecture',
+        'Other'
+    ]
 
 class DevelopmentConfig(Config):
     """Development configuration"""

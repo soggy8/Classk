@@ -6,6 +6,10 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: cardFadeInUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.1s;
 }
 
 .missions-header h1 {
@@ -26,6 +30,10 @@
     margin-bottom: 2rem;
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
     position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.2s;
 }
 
 .filters::before {
@@ -99,7 +107,21 @@
     transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
+
+/* Staggered animation for mission cards */
+.mission-card:nth-child(1) { animation-delay: 0.1s; }
+.mission-card:nth-child(2) { animation-delay: 0.2s; }
+.mission-card:nth-child(3) { animation-delay: 0.3s; }
+.mission-card:nth-child(4) { animation-delay: 0.4s; }
+.mission-card:nth-child(5) { animation-delay: 0.5s; }
+.mission-card:nth-child(6) { animation-delay: 0.6s; }
+.mission-card:nth-child(7) { animation-delay: 0.7s; }
+.mission-card:nth-child(8) { animation-delay: 0.8s; }
+.mission-card:nth-child(n+9) { animation-delay: 0.9s; }
 
 .mission-card::before {
     content: '';
@@ -289,6 +311,10 @@
     overflow: visible;
     max-width: 800px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.2s;
 }
 
 .mission-detail::before {
@@ -393,6 +419,10 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.20);
     border-radius: 18px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: cardFadeInUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.4s;
 }
 
 .mission-attachment h3 {
@@ -408,6 +438,10 @@
     border-radius: 18px;
     margin-top: 24px;
     box-shadow: 0 8px 16px rgba(15, 23, 42, 0.3);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: cardFadeInUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.5s;
 }
 
 .mission-info p {
@@ -453,6 +487,10 @@
     font-weight: 600;
     color: #F9FAFB;
     margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: cardFadeInUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.1s;
 }
 
 .leaderboard-filters {
@@ -463,6 +501,10 @@
     border-radius: 18px;
     margin-bottom: 24px;
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.2s;
 }
 
 .leaderboard-filters .filter-group {
@@ -507,6 +549,10 @@
     border-radius: 18px;
     margin-bottom: 24px;
     box-shadow: 0 8px 16px rgba(15, 23, 42, 0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.3s;
 }
 
 .user-rank h2 {
@@ -543,6 +589,10 @@
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
     border-collapse: separate;
     border-spacing: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.4s;
 }
 
 .leaderboard-table thead {
@@ -564,7 +614,22 @@
 .leaderboard-table tbody tr {
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
     transition: all 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: fadeInLeft 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
 }
+
+.leaderboard-table tbody tr:nth-child(1) { animation-delay: 0.5s; }
+.leaderboard-table tbody tr:nth-child(2) { animation-delay: 0.55s; }
+.leaderboard-table tbody tr:nth-child(3) { animation-delay: 0.6s; }
+.leaderboard-table tbody tr:nth-child(4) { animation-delay: 0.65s; }
+.leaderboard-table tbody tr:nth-child(5) { animation-delay: 0.7s; }
+.leaderboard-table tbody tr:nth-child(6) { animation-delay: 0.75s; }
+.leaderboard-table tbody tr:nth-child(7) { animation-delay: 0.8s; }
+.leaderboard-table tbody tr:nth-child(8) { animation-delay: 0.85s; }
+.leaderboard-table tbody tr:nth-child(9) { animation-delay: 0.9s; }
+.leaderboard-table tbody tr:nth-child(10) { animation-delay: 0.95s; }
+.leaderboard-table tbody tr:nth-child(n+11) { animation-delay: 1s; }
 
 .leaderboard-table tbody tr:last-child {
     border-bottom: none;
@@ -626,6 +691,10 @@
     overflow: visible;
     max-width: 600px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.2s;
 }
 
 .create-mission::before {

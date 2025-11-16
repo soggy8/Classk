@@ -14,12 +14,9 @@ html {
 
 body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    font-family: Poppins, sans-serif;
-    background: radial-gradient(circle at top, #a855ff 0%, #4c1d95 35%, #03001c 100%);
-    color: #f9fafb;
-    line-height: 1.6;
-    color: #F9FAFB;
     background: radial-gradient(circle at top, #A855FF 0%, #4C1D95 35%, #03001C 100%);
+    color: #F9FAFB;
+    line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
@@ -76,19 +73,16 @@ body {
    ============================ */
 
 .navbar {
-    background: #020617; /* deep navy */
-    color: white;
-    padding: 0.9rem 0;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.6);
-    position: sticky;
-    top: 0;
-    z-index: 50;
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     color: #f9fafb;
     padding: 1rem 0;
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
 .navbar .container {
@@ -98,16 +92,14 @@ body {
 }
 
 .nav-brand a {
-    color: #f9fafb;
+    color: transparent;
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 0.04em;
     font-size: 1.6rem;
     font-weight: 600;
+    letter-spacing: 0.04em;
     background: linear-gradient(135deg, #a855ff, #ec4899);
     -webkit-background-clip: text;
-    color: transparent;
+    background-clip: text;
 }
 
 .nav-menu {
@@ -170,6 +162,41 @@ body {
     padding: 2rem 0;
     position: relative;
     overflow: visible;
+    animation: pageFadeIn 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* Global page animation */
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Global card fade-in animation */
+@keyframes cardFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Global element fade-in from left */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Flash messages */
@@ -221,103 +248,246 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #A855FF, #EC4899);
-    color: #F9FAFB;
-    border: none;
-    border-radius: 16px;
-    box-shadow: 0 14px 28px rgba(76, 29, 149, 0.5);
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
     display: inline-block;
     padding: 12px 30px;
-    border-radius: 16px;
     background: linear-gradient(135deg, #a855ff, #ec4899);
     color: #f9fafb;
+    border: none;
+    border-radius: 16px;
+    font-family: 'Poppins', sans-serif;
     font-weight: 500;
     text-decoration: none;
-    box-shadow: 0 14px 28px rgba(76,29,149,0.5);
-    transition: 0.2s ease;
+    box-shadow: 0 14px 28px rgba(76, 29, 149, 0.5);
+    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: 0 18px 36px rgba(76, 29, 149, 0.6);
     filter: brightness(1.1);
-    transform: translateY(-2px);
-    filter: brightness(1.08);
 }
 
 .btn-secondary {
-    background: rgba(15, 23, 42, 0.3);
-    border: 1px solid rgba(148, 163, 184, 0.70);
-    color: #E5E7EB;
-    border-radius: 16px;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
     display: inline-block;
     padding: 12px 30px;
-    border-radius: 16px;
     background: rgba(255, 255, 255, 0.40);
     border: 1px solid rgba(255, 255, 255, 0.40);
+    border-radius: 16px;
     color: #e5e7eb;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-decoration: none;
     backdrop-filter: blur(12px);
-    transition: 0.2s;
+    transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.18);
     border-color: #A855FF;
     transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.18);
 }
 
-.glass-card{
-    margin-top: 35px;
-    padding: 32px;
+/* Welcome Back Section - Glassmorphism Card */
+.welcome-back {
+    margin-top: 40px;
+    padding: 40px;
     background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.40);
     backdrop-filter: blur(18px);
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.2s;
+}
+
+.welcome-back::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -30%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+}
+
+.welcome-back::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+}
+
+.welcome-back h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #F9FAFB;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: cardFadeInUp 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.3s; }
+.stat-card:nth-child(2) { animation-delay: 0.4s; }
+.stat-card:nth-child(3) { animation-delay: 0.5s; }
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(168, 85, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 85, 255, 0.6);
+    box-shadow: 0 16px 40px rgba(76, 29, 149, 0.5);
+}
+
+.stat-card:hover::before {
+    opacity: 1;
+}
+
+.stat-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #F9FAFB;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #A855FF, #EC4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-card p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #94A3B8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.quick-actions {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.quick-actions .btn {
+    min-width: 180px;
+}
+
+/* Recent Missions Section */
+.recent-missions-section {
+    margin-top: 60px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeIn 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.6s;
+}
+
+.recent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #F9FAFB;
+    margin: 0;
+}
+
+.view-all {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #A855FF;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.view-all:hover {
+    color: #EC4899;
+    transform: translateX(4px);
+}
+
+.no-missions {
+    text-align: center;
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.40);
     border-radius: 26px;
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
 }
 
-.glass-inner{
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(14px);
-    border-radius: 20px;
-    padding: 20px 16px;
-}
-
-.quick-actions{
-    margin-top: 26px;
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-}
-
-.recent-missions-section{
-    margin-top: 60px;
-
-}
-
-.recent-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.section-title{
-    font-size: 22px;
-    font-weight: 600;
-}
-
-.view-all{
-    color: #e5e7eb;
-    text-decoration: none;
-    font-size: 14px;
+.no-missions p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #E5E7EB;
+    margin: 0;
 }
 
 .btn-success {
@@ -374,57 +544,38 @@ body {
 
 .hero-section {
     text-align: center;
-    padding-top: 90px;
+    padding: 4rem 0 3rem;
     position: relative;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .hero-section h1 {
-    font-size: 3rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
     margin-bottom: 1rem;
+    color: #F9FAFB;
+    line-height: 1.2;
 }
 
 .subtitle {
-    font-size: 15px;
-    color: #e5e7eb;
-    font-weight: 300;
-    margin-bottom: 22px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #E5E7EB;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
 }
 
 .cta-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
-}
-
-/* ============================
-   Stats
-   ============================ */
-
-.stats-grid {
-    margin-top: 26px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 18px;
-
-}
-
-.stat-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.stat-card h3 {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 3px;
-}
-
-.stat-card p {
-    color: #e5e7eb;
-    font-size: 13px;
+    flex-wrap: wrap;
 }
 
 /* Footer */
@@ -641,29 +792,56 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2rem;
+    .hero-section {
+        padding: 3rem 0 2rem;
+        min-height: 50vh;
     }
-
+    
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .welcome-back {
+        padding: 28px 24px;
+        margin-top: 30px;
+    }
+    
+    .welcome-back h2 {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+    
     .stats-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
-}
-/* ========== Glassy navbar background only ========== */
-.navbar {
-    /* GLASS BACKGROUND (same vibe as auth card) */
-    background: rgba(255, 255, 255, 0.12);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    
+    .stat-card {
+        padding: 20px 16px;
+    }
+    
+    .stat-card h3 {
+        font-size: 28px;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .quick-actions .btn {
+        width: 100%;
+    }
+    
+    .recent-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-    /* subtle shadow like the auth card */
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.55);
-}
-
-/* make sure the inner container doesn't override the glass */
-.navbar .container {
-    background: transparent;
 }
 
 /* =============================
@@ -705,6 +883,90 @@ body {
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
     color: #F9FAFB;
     padding: 18px 22px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardFadeInUp 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* Staggered animation delays for cards */
+.profile-page .profile-card {
+    animation-delay: 0.1s;
+}
+
+.profile-page .profile-row .card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.profile-page .profile-row .card:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.profile-page .profile-row .card:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.profile-page .large-center {
+    animation-delay: 0.5s;
+}
+
+.profile-page .bottom-row .card:nth-child(1) {
+    animation-delay: 0.6s;
+}
+
+.profile-page .bottom-row .card:nth-child(2) {
+    animation-delay: 0.7s;
+}
+
+/* Mission items fade in animation */
+.profile-page .mission-item {
+    opacity: 0;
+    transform: translateX(-10px);
+    animation: missionItemFadeIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.profile-page .mission-item:nth-child(1) {
+    animation-delay: 0.8s;
+}
+
+.profile-page .mission-item:nth-child(2) {
+    animation-delay: 0.85s;
+}
+
+.profile-page .mission-item:nth-child(3) {
+    animation-delay: 0.9s;
+}
+
+.profile-page .mission-item:nth-child(4) {
+    animation-delay: 0.95s;
+}
+
+.profile-page .mission-item:nth-child(5) {
+    animation-delay: 1s;
+}
+
+.profile-page .mission-item:nth-child(n+6) {
+    animation-delay: 1.05s;
+}
+
+/* Additional keyframe animations */
+@keyframes missionItemFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Top profile card */
@@ -838,6 +1100,9 @@ body {
 .empty-state {
     font-size: 13px;
     color: #94A3B8;
+    opacity: 0;
+    animation: fadeIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+    animation-delay: 0.8s;
 }
 
 /* RESPONSIVE: stack rows on small screens */
