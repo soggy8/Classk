@@ -94,7 +94,7 @@ body {
 .nav-brand a {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-decoration: none;
     color: transparent;
     font-size: 1.6rem;
@@ -106,25 +106,15 @@ body {
 }
 
 .nav-brand .logo-img {
-    height: 36px;
-    width: auto;
-    object-fit: contain;
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    flex-shrink: 0;
 }
 
 .nav-brand .logo-text {
-    display: inline-block;
-}
-
-.nav-brand .logo-img {
-    display: block;
-}
-
-.nav-brand .logo-img[src] ~ .logo-text {
-    display: none;
-}
-
-/* Show text fallback if image fails */
-.nav-brand .logo-img[style*="display: none"] + .logo-text {
     display: inline-block;
 }
 
