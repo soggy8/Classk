@@ -121,6 +121,29 @@ body .main-content .container {
     font-size: 18px;
     font-weight: 700;
     box-shadow: 0 8px 18px rgba(88, 28, 135, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+    display: block;
+}
+
+.brand-logo-fallback {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Show fallback if image fails to load */
+.brand-logo-img[src] + .brand-logo-fallback {
+    display: none;
 }
 
 .brand-name {

@@ -92,14 +92,40 @@ body {
 }
 
 .nav-brand a {
-    color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
+    color: transparent;
     font-size: 1.6rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     background: linear-gradient(135deg, #a855ff, #ec4899);
     -webkit-background-clip: text;
     background-clip: text;
+}
+
+.nav-brand .logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-brand .logo-text {
+    display: inline-block;
+}
+
+.nav-brand .logo-img {
+    display: block;
+}
+
+.nav-brand .logo-img[src] ~ .logo-text {
+    display: none;
+}
+
+/* Show text fallback if image fails */
+.nav-brand .logo-img[style*="display: none"] + .logo-text {
+    display: inline-block;
 }
 
 .nav-menu {

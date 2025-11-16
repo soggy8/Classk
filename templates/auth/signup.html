@@ -13,7 +13,10 @@
 
     <div class="auth-card">
         <div class="brand">
-            <div class="brand-logo">C</div>
+            <div class="brand-logo">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Classk" class="brand-logo-img" onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/logo.png') }}'; this.onerror=function(){this.style.display='none'; this.nextElementSibling.style.display='flex';};">
+                <span class="brand-logo-fallback">C</span>
+            </div>
             <div class="brand-name">Classk</div>
         </div>
 

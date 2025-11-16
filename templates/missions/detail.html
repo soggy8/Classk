@@ -4,6 +4,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom-select.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -33,6 +34,61 @@
                    target="_blank" class="btn btn-secondary">
                     <span style="margin-right: 8px;">📎</span>View Attachment
                 </a>
+            </div>
+        {% endif %}
+
+        {% if mission.category == 'Event' %}
+            <div class="mission-ratings">
+                <h3>Event Ratings</h3>
+                {% if average_rating %}
+                    <div class="average-rating">
+                        <p><strong>Average Rating:</strong> {{ "%.1f"|format(average_rating) }} ⭐ ({{ ratings|length }} {{ 'review' if ratings|length == 1 else 'reviews' }})</p>
+                    </div>
+                {% else %}
+                    <p class="no-ratings">No ratings yet. Be the first to rate!</p>
+                {% endif %}
+                
+                {% if current_user.is_authenticated and mission.status == 'Completed' and mission.assignee_id == current_user.id %}
+                    <div class="rating-form">
+                        <h4>{% if user_rating %}Update Your Rating{% else %}Rate This Event{% endif %}</h4>
+                        <form method="POST" action="{{ url_for('missions.rate_event', mission_id=mission.id) }}">
+                            <div class="form-group">
+                                <label for="rating">Rating (1-5 stars) *</label>
+                                <div class="custom-select-wrapper">
+                                    <select id="rating" name="rating" required>
+                                        <option value="">Select rating</option>
+                                        {% for i in range(1, 6) %}
+                                            <option value="{{ i }}" {% if user_rating and user_rating.rating == i %}selected{% endif %}>{{ i }} {{ '⭐' * i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment (optional)</label>
+                                <textarea id="comment" name="comment" rows="3" placeholder="Share your experience...">{{ user_rating.comment if user_rating else '' }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">{% if user_rating %}Update Rating{% else %}Submit Rating{% endif %}</button>
+                        </form>
+                    </div>
+                {% endif %}
+                
+                {% if ratings %}
+                    <div class="ratings-list">
+                        <h4>All Ratings</h4>
+                        {% for rating in ratings %}
+                            <div class="rating-item">
+                                <div class="rating-header">
+                                    <strong>{{ rating.user.name }}</strong>
+                                    <span class="rating-stars">{{ '⭐' * rating.rating }}</span>
+                                    <span class="rating-date">{{ rating.created_at.strftime('%Y-%m-%d') }}</span>
+                                </div>
+                                {% if rating.comment %}
+                                    <p class="rating-comment">{{ rating.comment }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         {% endif %}
 
@@ -70,4 +126,8 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/custom-select.js') }}"></script>
 {% endblock %}

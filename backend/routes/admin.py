@@ -3,6 +3,7 @@ Admin routes
 """
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
+from sqlalchemy.orm import joinedload
 from backend import db
 from backend.models.mission import Mission
 from backend.models.user import User
@@ -30,8 +31,11 @@ def dashboard():
     status = request.args.get('status')
     creator_id = request.args.get('creator_id', type=int)
     
-    # Query missions in admin's group
-    query = Mission.query.filter_by(group_name=current_user.major_group)
+    # Query missions in admin's group with relationships
+    query = Mission.query.options(
+        joinedload(Mission.creator),
+        joinedload(Mission.assignee)
+    ).filter_by(group_name=current_user.major_group)
     
     if category:
         query = query.filter_by(category=category)

@@ -28,6 +28,7 @@ class Config:
     POINTS_HELP_HARD = 60
     POINTS_LOST_FOUND = 30
     POINTS_TEAM_STUDY = 20
+    POINTS_EVENT = 25
     
     # Level calculation (every 100 points = 1 level)
     POINTS_PER_LEVEL = 100

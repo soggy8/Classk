@@ -17,6 +17,8 @@ def calculate_points(category, difficulty=None):
         return Config.POINTS_LOST_FOUND
     elif category == Mission.CATEGORY_TEAM_STUDY:
         return Config.POINTS_TEAM_STUDY
+    elif category == Mission.CATEGORY_EVENT:
+        return Config.POINTS_EVENT
     return 0
 
 def get_mission_categories():

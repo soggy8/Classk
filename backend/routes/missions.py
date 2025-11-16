@@ -9,6 +9,7 @@ import os
 from backend import db
 from backend.models.mission import Mission
 from backend.models.user import User
+from backend.models.rating import Rating
 from backend.config import Config
 
 missions_bp = Blueprint('missions', __name__)
@@ -97,7 +98,32 @@ def detail(mission_id):
     mission = Mission.query.options(
         joinedload(Mission.creator)
     ).get_or_404(mission_id)
-    return render_template('missions/detail.html', mission=mission)
+    
+    # Load ratings for Event missions
+    ratings = []
+    average_rating = None
+    user_rating = None
+    
+    if mission.category == Mission.CATEGORY_EVENT:
+        ratings = Rating.query.options(
+            joinedload(Rating.user)
+        ).filter_by(mission_id=mission_id).order_by(Rating.created_at.desc()).all()
+        
+        if ratings:
+            average_rating = sum(r.rating for r in ratings) / len(ratings)
+        
+        # Check if current user has rated
+        if current_user.is_authenticated:
+            user_rating = Rating.query.filter_by(
+                mission_id=mission_id,
+                user_id=current_user.id
+            ).first()
+    
+    return render_template('missions/detail.html', 
+                         mission=mission,
+                         ratings=ratings,
+                         average_rating=average_rating,
+                         user_rating=user_rating)
 
 @missions_bp.route('/<int:mission_id>/accept', methods=['POST'])
 @login_required
@@ -127,8 +153,59 @@ def complete(mission_id):
     mission = Mission.query.get_or_404(mission_id)
     
     if mission.complete(current_user):
-        flash(f'Mission completed! You earned {mission.points_awarded} points.', 'success')
+        if mission.category == Mission.CATEGORY_EVENT:
+            flash(f'Event completed! You earned {mission.points_awarded} points. You can now rate this event below.', 'success')
+        else:
+            flash(f'Mission completed! You earned {mission.points_awarded} points.', 'success')
     else:
         flash('You cannot complete this mission.', 'error')
     
+    return redirect(url_for('missions.detail', mission_id=mission_id))
+
+@missions_bp.route('/<int:mission_id>/rate', methods=['POST'])
+@login_required
+def rate_event(mission_id):
+    """Rate an Event mission"""
+    mission = Mission.query.get_or_404(mission_id)
+    
+    # Only allow rating Event missions
+    if mission.category != Mission.CATEGORY_EVENT:
+        flash('Only Event missions can be rated.', 'error')
+        return redirect(url_for('missions.detail', mission_id=mission_id))
+    
+    # User must have completed the mission to rate it
+    if mission.status != Mission.STATUS_COMPLETED or mission.assignee_id != current_user.id:
+        flash('You can only rate events you have completed.', 'error')
+        return redirect(url_for('missions.detail', mission_id=mission_id))
+    
+    rating_value = request.form.get('rating', type=int)
+    comment = request.form.get('comment', '').strip()
+    
+    if not rating_value or rating_value < 1 or rating_value > 5:
+        flash('Please provide a valid rating (1-5 stars).', 'error')
+        return redirect(url_for('missions.detail', mission_id=mission_id))
+    
+    # Check if user has already rated
+    existing_rating = Rating.query.filter_by(
+        mission_id=mission_id,
+        user_id=current_user.id
+    ).first()
+    
+    if existing_rating:
+        # Update existing rating
+        existing_rating.rating = rating_value
+        existing_rating.comment = comment
+        flash('Rating updated successfully!', 'success')
+    else:
+        # Create new rating
+        rating = Rating(
+            mission_id=mission_id,
+            user_id=current_user.id,
+            rating=rating_value,
+            comment=comment
+        )
+        db.session.add(rating)
+        flash('Thank you for rating this event!', 'success')
+    
+    db.session.commit()
     return redirect(url_for('missions.detail', mission_id=mission_id))

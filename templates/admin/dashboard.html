@@ -2,54 +2,91 @@
 
 {% block title %}Admin Dashboard - Classk{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/missions.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/custom-select.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="admin-dashboard">
-    <h1>Admin Dashboard - {{ current_user.major_group }}</h1>
+    <div class="admin-header">
+        <div class="admin-header-content">
+            <h1>Admin Dashboard</h1>
+            <p class="admin-subtitle">{{ current_user.major_group }}</p>
+        </div>
+        <div class="admin-stats-summary">
+            <div class="admin-stat-card">
+                <div class="admin-stat-value">{{ missions|length }}</div>
+                <div class="admin-stat-label">Total Missions</div>
+            </div>
+            <div class="admin-stat-card">
+                <div class="admin-stat-value">{{ missions|selectattr('status', 'equalto', 'Completed')|list|length }}</div>
+                <div class="admin-stat-label">Completed</div>
+            </div>
+            <div class="admin-stat-card">
+                <div class="admin-stat-value">{{ missions|selectattr('status', 'equalto', 'Open')|list|length }}</div>
+                <div class="admin-stat-label">Open</div>
+            </div>
+        </div>
+    </div>
 
-    <div class="admin-filters">
-        <h2>Filters</h2>
-        <form method="GET" action="{{ url_for('admin.dashboard') }}" class="filter-form">
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select id="category" name="category">
-                    <option value="">All Categories</option>
-                    <option value="Help/Favor" {{ 'selected' if current_category == 'Help/Favor' else '' }}>Help/Favor</option>
-                    <option value="Lost & Found" {{ 'selected' if current_category == 'Lost & Found' else '' }}>Lost & Found</option>
-                    <option value="Team/Study Group" {{ 'selected' if current_category == 'Team/Study Group' else '' }}>Team/Study Group</option>
-                    <option value="Event" {{ 'selected' if current_category == 'Event' else '' }}>Event</option>
-                </select>
+    <div class="admin-filters-card">
+        <h3>Filters</h3>
+        <form method="GET" action="{{ url_for('admin.dashboard') }}" class="admin-filter-form">
+            <div class="filter-row">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <div class="custom-select-wrapper">
+                        <select id="category" name="category">
+                            <option value="">All Categories</option>
+                            <option value="Help/Favor" {{ 'selected' if current_category == 'Help/Favor' else '' }}>Help/Favor</option>
+                            <option value="Lost & Found" {{ 'selected' if current_category == 'Lost & Found' else '' }}>Lost & Found</option>
+                            <option value="Team/Study Group" {{ 'selected' if current_category == 'Team/Study Group' else '' }}>Team/Study Group</option>
+                            <option value="Event" {{ 'selected' if current_category == 'Event' else '' }}>Event</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <div class="custom-select-wrapper">
+                        <select id="status" name="status">
+                            <option value="">All Statuses</option>
+                            <option value="Open" {{ 'selected' if current_status == 'Open' else '' }}>Open</option>
+                            <option value="Accepted" {{ 'selected' if current_status == 'Accepted' else '' }}>Accepted</option>
+                            <option value="Completed" {{ 'selected' if current_status == 'Completed' else '' }}>Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="creator_id">Creator</label>
+                    <div class="custom-select-wrapper">
+                        <select id="creator_id" name="creator_id">
+                            <option value="">All Creators</option>
+                            {% for user in group_users %}
+                                <option value="{{ user.id }}" {{ 'selected' if current_creator_id == user.id else '' }}>{{ user.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select id="status" name="status">
-                    <option value="">All Statuses</option>
-                    <option value="Open" {{ 'selected' if current_status == 'Open' else '' }}>Open</option>
-                    <option value="Accepted" {{ 'selected' if current_status == 'Accepted' else '' }}>Accepted</option>
-                    <option value="Completed" {{ 'selected' if current_status == 'Completed' else '' }}>Completed</option>
-                </select>
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Clear Filters</a>
             </div>
-
-            <div class="form-group">
-                <label for="creator_id">Creator</label>
-                <select id="creator_id" name="creator_id">
-                    <option value="">All Creators</option>
-                    {% for user in group_users %}
-                        <option value="{{ user.id }}" {{ 'selected' if current_creator_id == user.id else '' }}>{{ user.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Clear Filters</a>
         </form>
     </div>
 
-    <div class="admin-missions">
-        <h2>All Missions ({{ missions|length }})</h2>
+    <div class="admin-missions-card">
+        <div class="admin-missions-header">
+            <h2>All Missions</h2>
+            <span class="mission-count-badge">{{ missions|length }} {{ 'mission' if missions|length == 1 else 'missions' }}</span>
+        </div>
         {% if missions %}
-            <div class="missions-table">
-                <table>
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -64,22 +101,40 @@
                     <tbody>
                         {% for mission in missions %}
                             <tr>
-                                <td><a href="{{ url_for('missions.detail', mission_id=mission.id) }}">{{ mission.title }}</a></td>
-                                <td>{{ mission.category }}</td>
-                                <td><span class="status-badge status-{{ mission.status.lower() }}">{{ mission.status }}</span></td>
+                                <td>
+                                    <a href="{{ url_for('missions.detail', mission_id=mission.id) }}" class="mission-title-link">
+                                        {{ mission.title }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="mission-category-badge">{{ mission.category }}</span>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-{{ mission.status.lower() }}">{{ mission.status }}</span>
+                                </td>
                                 <td>{{ mission.creator.name }}</td>
-                                <td>{{ mission.assignee.name if mission.assignee else '-' }}</td>
-                                <td>{{ mission.points_awarded if mission.points_awarded else mission.points }}</td>
+                                <td>
+                                    {% if mission.assignee %}
+                                        <span class="assignee-name">{{ mission.assignee.name }}</span>
+                                    {% else %}
+                                        <span class="no-assignee">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="points-display">🎯 {{ mission.points_awarded if mission.points_awarded else mission.points }}</span>
+                                </td>
                                 <td>
                                     {% if mission.status == 'Completed' and not mission.points_invalidated %}
-                                        <form method="POST" action="{{ url_for('admin.invalidate_points', mission_id=mission.id) }}" style="display: inline;">
+                                        <form method="POST" action="{{ url_for('admin.invalidate_points', mission_id=mission.id) }}" style="display: inline;" class="invalidate-form">
                                             <button type="submit" class="btn btn-danger btn-sm" 
                                                     onclick="return confirm('Are you sure you want to invalidate points for this mission?');">
-                                                Invalidate Points
+                                                Invalidate
                                             </button>
                                         </form>
+                                    {% elif mission.points_invalidated %}
+                                        <span class="invalidated-badge">Invalidated</span>
                                     {% else %}
-                                        -
+                                        <span class="no-action">-</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -88,8 +143,14 @@
                 </table>
             </div>
         {% else %}
-            <p>No missions found.</p>
+            <div class="no-missions-message">
+                <p>No missions found matching your filters.</p>
+            </div>
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/custom-select.js') }}"></script>
 {% endblock %}
