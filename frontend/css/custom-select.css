@@ -3,11 +3,6 @@
 .custom-select-wrapper {
     position: relative;
     width: 100%;
-    z-index: 1;
-}
-
-.custom-select-wrapper.open {
-    z-index: 1001;
 }
 
 .custom-select-trigger {
@@ -67,8 +62,8 @@
     border: 1px solid rgba(255, 255, 255, 0.40);
     border-radius: 14px;
     box-shadow: 0 24px 60px rgba(15, 23, 42, 0.55);
-    z-index: 1;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     max-height: 0;
     transition: max-height 0.3s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
     opacity: 0;
@@ -83,6 +78,10 @@
 /* Allow content to be visible when expanded */
 .custom-select-dropdown {
     min-height: 0;
+}
+
+.custom-select-wrapper {
+    position: relative;
 }
 
 .custom-select-dropdown::before {
@@ -132,6 +131,8 @@
     position: relative;
     white-space: nowrap;
     overflow: visible;
+    z-index: 1;
+    pointer-events: auto;
 }
 
 .custom-select-option:last-child {

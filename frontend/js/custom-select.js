@@ -198,6 +198,8 @@ function createCustomSelect(selectElement) {
             void dropdown.offsetHeight;
             
             const actualHeight = dropdown.scrollHeight;
+            // Set a maximum height (300px) with scroll, but use actual height if smaller
+            const maxDropdownHeight = Math.min(actualHeight, 300);
             dropdown.style.maxHeight = '0';
             
             // Set display to block
@@ -205,7 +207,7 @@ function createCustomSelect(selectElement) {
             
             // Set max-height to actual height for smooth animation
             setTimeout(function() {
-                dropdown.style.maxHeight = actualHeight + 'px';
+                dropdown.style.maxHeight = maxDropdownHeight + 'px';
                 dropdown.style.opacity = '1';
             }, 10);
         } else {
@@ -254,4 +256,8 @@ function createCustomSelect(selectElement) {
         rebuildDropdownOptions();
     });
 }
+
+// Make functions available globally for use in other scripts
+window.reinitCustomSelects = reinitCustomSelects;
+window.createCustomSelect = createCustomSelect;
 

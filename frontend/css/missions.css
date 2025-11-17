@@ -1358,11 +1358,6 @@
     margin-bottom: 20px;
     position: relative;
     overflow: visible;
-    z-index: 1;
-}
-
-.create-mission .form-group:has(.custom-select-wrapper.open) {
-    z-index: 1002;
 }
 
 .create-mission .form-group label {
@@ -1551,7 +1546,7 @@
     display: none;
     opacity: 0;
     max-height: 0;
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
     margin-bottom: 0;
     transform: translateY(-10px);
@@ -1560,9 +1555,15 @@
 #difficulty-group.show {
     display: block;
     opacity: 1;
-    max-height: 150px;
+    max-height: 200px;
     margin-bottom: 20px;
     transform: translateY(0);
+    overflow: visible;
+}
+
+/* Allow dropdown to overflow when open */
+#difficulty-group.show {
+    overflow: visible;
 }
 
 /* Highlight difficulty select when visible */

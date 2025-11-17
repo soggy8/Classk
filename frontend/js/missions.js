@@ -16,12 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Trigger animation
                 setTimeout(function() {
                     difficultyGroup.classList.add('show');
-                    // Re-initialize custom select for difficulty after it's shown
+                    // Re-initialize custom select for difficulty after it's fully visible
                     setTimeout(function() {
                         if (typeof reinitCustomSelects === 'function') {
                             reinitCustomSelects();
                         }
-                    }, 50);
+                        // Also try direct initialization for difficulty select
+                        const difficultyWrapper = difficultySelect.parentElement;
+                        if (difficultyWrapper && difficultyWrapper.classList.contains('custom-select-wrapper')) {
+                            if (!difficultyWrapper.querySelector('.custom-select-trigger')) {
+                                if (typeof createCustomSelect === 'function') {
+                                    createCustomSelect(difficultySelect);
+                                }
+                            }
+                        }
+                    }, 350);
                 }, 10);
             } else {
                 // Hide difficulty field with animation
